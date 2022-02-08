@@ -28,14 +28,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
   addIputsForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const { target } = event;
-    clearCreatedFormContainer(createdFormContainer);
-    const elementsInfoArray = getArrayInfoObjects(target);
+    if (doValidation(target)) {
+      clearCreatedFormContainer(createdFormContainer);
+      const elementsInfoArray = getArrayInfoObjects(target);
 
-    const newForm = new Form(createdFormContainer);
-    const inputsFragment = getNewFormMarkup(elementsInfoArray);
-    newForm.createNewForm();
-    newForm.inputsContainer.prepend(inputsFragment);
-    newForm.appendNewForm();
+      const newForm = new Form(createdFormContainer);
+      const inputsFragment = getNewFormMarkup(elementsInfoArray);
+      newForm.createNewForm();
+      newForm.inputsContainer.prepend(inputsFragment);
+      newForm.appendNewForm();
+    }
   });
 
   formContainer.addEventListener("change", (event) => {
@@ -61,7 +63,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const getTextInputMarkup = () => {
     return `
   <input
-  class="form-control"
+  class="form-control req"
   type="text"
   placeholder="Label for input"
   aria-label="Disabled input example"
@@ -69,7 +71,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   required
 />
 <input
-  class="form-control"
+  class="form-control req"
   type="text"
   placeholder="Id for label"
   aria-label="Disabled input example"
@@ -77,7 +79,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   required
 />
 <input
-  class="form-control"
+  class="form-control req"
   type="text"
   placeholder="Min text length"
   aria-label="Disabled input example"
@@ -85,16 +87,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
   required
 />
 <input
-  class="form-control"
-  type="text"
+class="form-control req"
+type="text"
   placeholder="Max text length"
   aria-label="Disabled input example"
   name="maxLength"
   required
 />
 <input
-  class="form-control"
-  type="text"
+class="form-control req"
+type="text"
   placeholder="Placeholder for input"
   aria-label="Disabled input example"
   name="placeholder"
@@ -106,7 +108,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const getNumberInputMarkup = () => {
     return `
   <input
-  class="form-control"
+  class="form-control req"
   type="text"
   placeholder="Label for input"
   aria-label="Disabled input example"
@@ -114,48 +116,48 @@ document.addEventListener("DOMContentLoaded", (event) => {
   required
 />
 <input
-  class="form-control"
-  type="text"
+class="form-control req"
+type="text"
   placeholder="Id for label"
   aria-label="Disabled input example"
   name="id"
   required
 />
 <input
-  class="form-control"
-  type="text"
+class="form-control req"
+type="text"
   placeholder="Start value"
   aria-label="Disabled input example"
   name="value"
   required
 />
 <input
-  class="form-control"
-  type="text"
+class="form-control req"
+type="text"
   placeholder="Step"
   aria-label="Disabled input example"
   name="step"
   required
 />
 <input
-  class="form-control"
-  type="text"
+class="form-control req"
+type="text"
   placeholder="Min value"
   aria-label="Disabled input example"
   name="min"
   required
 />
 <input
-  class="form-control"
-  type="text"
+class="form-control req"
+type="text"
   placeholder="Max value"
   aria-label="Disabled input example"
   name="max"
   required
 />
 <input
-  class="form-control"
-  type="text"
+class="form-control req"
+type="text"
   placeholder="Placeholder for input"
   aria-label="Disabled input example"
   name="placeholder"
@@ -167,7 +169,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const getCheckBoxInputMarkup = () => {
     return `
   <input
-  class="form-control"
+  class="form-control req"
   type="text"
   placeholder="Label for input"
   aria-label="Disabled input example"
@@ -175,16 +177,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
   required
 />
 <input
-  class="form-control"
-  type="text"
+class="form-control req"
+type="text"
   placeholder="Id for label"
   aria-label="Disabled input example"
   name="id"
   required
 />
 <input
-  class="form-control"
-  type="text"
+class="form-control req"
+type="text"
   placeholder="Value"
   aria-label="Disabled input example"
   name="value"
@@ -204,18 +206,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   const getArrayInfoObjects = (targetForm) => {
     const objectsArray = [];
-    const formData = [...targetForm.elements].reduce((acc, element) => {
-      if (element.tagName !== "BUTTON") {
-        acc.push([element.name, element.value]);
+    const formData = [...targetForm.querySelectorAll(".req")].reduce(
+      (acc, element) => {
+        acc.push([element.name, element.value.trim()]);
         return acc;
-      }
-      return acc;
-    }, []);
+      },
+      []
+    );
 
     const preparedArrayForCreatingObjects = getFormDataArrays(formData);
-
-    console.log(preparedArrayForCreatingObjects)
-
     preparedArrayForCreatingObjects.forEach((element) => {
       objectsArray.push(Object.fromEntries(element));
     });

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main class="main">
+      <div class="form-container container">
+        <form class="form col-12">
+          <!-- <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="createNewForm"
+            />
+            <label class="form-check-label" for="createNewForm">
+              Create new form
+            </label>
+          </div>
+                    -->
+          <div class="inputs-container">
+            <div class="input-container row">
+              <div class="input-add-form col-10">
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  name="inputType"
+                  required
+                >
+                  <option selected value="">Add input</option>
+                  <option value="number">Number input</option>
+                  <option value="text">Text input</option>
+                  <option value="checkbox">Checkbox input</option>
+                </select>
+              </div>
+              <div class="buttons-container col-2">
+                <div class="add-new-input-markup-btn">
+                  <button class="btn btn-success add-input-btn">
+                    <i class="far fa-plus-square"></i>
+                  </button>
+                </div>
+                <div class="remove-input-markup-btn">
+                  <button class="btn btn-danger remove-input-btn">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="inputs-info-container"></div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success btn-send-form">
+            Appear
+          </button>
+        </form>
+      </div>
+      <div class="container created-form-container"></div>
+    </main>
+
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./js/Form.js"></script>
+    <script src="./js/Input.js"></script>
+    <script src="./js/TextInput.js"></script>
+    <script src="./js/CheckBox.js"></script>
+    <script src="./js/Number.js"></script>
+    <script src="./js/validation.js"></script>
+    <script src="./js/app.js"></script>
+  </body>
+</html>

@@ -87,7 +87,7 @@ const doValidation = (form) => {
 };
 
 const isTextValid = (text) => {
-  const regExp = /^[[a-zA-z]|\s]+$/;
+  const regExp = /^[[a-zA-z]|\d|\s]+$/;
   return regExp.test(text);
 };
 
@@ -123,3 +123,5 @@ const deleteErrorStyle = (elements) => {
     }
   });
 };
+
+

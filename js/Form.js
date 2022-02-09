@@ -1,62 +1,98 @@
 class Form {
-constructor(container){
-  this.container = container
-
-}
-
-  get container(){
-    return this._container
+  constructor(container) {
+    this.container = container;
   }
 
-  set container (element) {
-    if(element !== null){
+  get container() {
+    if(this._container){
+      return this._container;
+    }
+    return
+  }
+
+  set container(element) {
+    if (element !== null) {
       this._container = element;
-      return
-    }
-    return
-  }
-
-  createNewForm(){
-    const formElement = document.createElement('form')
-    const copyButton = document.createElement('div')
-    formElement.classList.add('col')
-    formElement.classList.add('new-form-element')
-    copyButton.classList.add('copy-btn')
-    copyButton.textContent = 'Copy'
-    formElement.insertAdjacentElement('afterbegin', copyButton)
-    formElement.insertAdjacentElement('afterbegin', this.createInputsContainer())
-    formElement.insertAdjacentElement('beforeend', Form.createSubmitButton())
-    this.form = formElement
-  }
-
-  appendNewForm(){
-    if(this.form){
-      this._container.append(this.form)
     }
   }
 
-
-  static copyFormHtml(){
-    if(this.form !== undefined){
-      return this.form.outerHTML
+  createNewForm() {
+    const formMarkup = Form.getFormMarkup()
+    formMarkup.insertAdjacentElement(
+      "afterbegin",
+      this.createInputsContainer()
+    );
+    this.copyBtn = Form.createCopyButton();
+    if(this.container){
+      this.container.append(this.copyBtn);
     }
-    return
+    this.form = formMarkup;
   }
 
-  static createSubmitButton(){
-    const submitButton = document.createElement('button')
-    submitButton.setAttribute('type','submit')
-    submitButton.classList.add('btn')
-    submitButton.classList.add('btn-success')
-    submitButton.textContent='Send'
-    return submitButton
+  appendNewForm() {
+    if (this.form && this.container) {
+      this.container.append(this.form);
+    }
   }
 
-  createInputsContainer(){
-    const inputsContainer = document.createElement('div')
-    inputsContainer.classList.add('inputs-container')
-    this.inputsContainer = inputsContainer
-    return this.inputsContainer
+  createCopyHandler() {
+    this.copyBtn.addEventListener("click", this.getFormHtml());
+    Form.createToastHandler()
+  }
+
+  copyFormHtml() {
+    if (this.form !== undefined) {
+      return this.form.outerHTML;
+    }
+  }
+
+  async getFormHtml() {
+    await navigator.clipboard.writeText(this.copyFormHtml());
+  }
+
+    createInputsContainer() {
+    const inputsContainer = document.createElement("div");
+    inputsContainer.classList.add("inputs-container");
+    this.inputsContainer = inputsContainer;
+    return this.inputsContainer;
+  }
+
+  static  createToastHandler=()=>{
+    let toastTrigger = document.getElementById("liveToastBtn");
+    let toastLiveExample = document.getElementById("liveToast");
+    if (toastTrigger) {
+      toastTrigger.addEventListener("click", function () {
+        let toast = new bootstrap.Toast(toastLiveExample);
+        toast.show();
+      });
+    }
+  }
+
+  static createSubmitButton() {
+    const submitButton = document.createElement("button");
+    submitButton.setAttribute("type", "submit");
+    submitButton.classList.add("btn");
+    submitButton.classList.add("btn-primary");
+    submitButton.classList.add("btn-send-form");
+    submitButton.textContent = "Send";
+    return submitButton;
+  }
+
+  static createCopyButton() {
+    const copyButton = document.createElement("btn");
+    copyButton.id = "liveToastBtn";
+    copyButton.classList.add("copy-btn");
+    copyButton.setAttribute("type", "button");
+    copyButton.textContent = "Copy";
+    return copyButton
+  }
+
+  static getFormMarkup(){
+    const formElement = document.createElement("form");
+    formElement.classList.add("col");
+    formElement.classList.add("new-form-element");
+    formElement.insertAdjacentElement("beforeend", Form.createSubmitButton());
+    return formElement
   }
 
 }

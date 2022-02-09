@@ -23,7 +23,7 @@
   justify-content: space-between;
 }
 
-.new-form-element {
+.created-form-container .new-form-element {
   position: relative;
 }
 .input-add-form {
@@ -45,13 +45,12 @@
   height: 100%;
 }
 
-.new-form-element .copy-btn {
+.copy-btn {
   position: absolute;
-  width: 10%;
-  right: -5%;
-  top: -15%;
+  width: 5%;
+  right: 3%;
+  top: 2%;
   z-index: 2;
-  transform: translate(-50%, -50%);
   text-align: center;
   cursor: pointer;
   background-color: black;

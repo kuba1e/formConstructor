@@ -13,29 +13,4 @@ class TextInput extends Input{
     this.input.classList.add('form-control-lg')
   }
 
-  set minLength(minLength){
-    const minLengthNumber = +minLength
-    if(minLengthNumber >= 0){
-      this._minLength = minLengthNumber
-    }
-  }
-
-  get minLength(){
-    return this._minLength
-  }
-
-
-  set maxLength(maxLength){
-    const maxLengthNumber = +maxLength
-    if(maxLengthNumber > 20){
-      this._maxLength = maxLengthNumber
-      return
-    }
-  }
-
-  get maxLength(){
-    return this._maxLength
-  }
-
-
 }

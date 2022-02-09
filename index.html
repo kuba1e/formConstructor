@@ -23,18 +23,6 @@
     <main class="main">
       <div class="form-container container">
         <form class="form col-12">
-          <!-- <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="createNewForm"
-            />
-            <label class="form-check-label" for="createNewForm">
-              Create new form
-            </label>
-          </div>
-                    -->
           <div class="inputs-container">
             <div class="input-container row">
               <div class="input-add-form col-10">
@@ -44,7 +32,7 @@
                   name="inputType"
                   required
                 >
-                  <option selected value="">Add input</option>
+                  <option selected value="">Choose input</option>
                   <option value="number">Number input</option>
                   <option value="text">Text input</option>
                   <option value="checkbox">Checkbox input</option>
@@ -71,15 +59,28 @@
         </form>
       </div>
       <div class="container created-form-container"></div>
-    </main>
 
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+      <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div
+          id="liveToast"
+          class="toast"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="toast-body">
+            You've been copied form html to clipboard
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/app.js"></script>
     <script src="./js/Form.js"></script>
     <script src="./js/Input.js"></script>
     <script src="./js/TextInput.js"></script>
     <script src="./js/CheckBox.js"></script>
-    <script src="./js/Number.js"></script>
+    <script src="./js/NumberInput.js"></script>
     <script src="./js/validation.js"></script>
-    <script src="./js/app.js"></script>
   </body>
 </html>

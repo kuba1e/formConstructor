@@ -1,5 +1,4 @@
 "use strict";
-
 document.addEventListener("DOMContentLoaded", (event) => {
   const formContainer = document.querySelector(".form-container");
   const inputsContainer = document.querySelector(".inputs-container");
@@ -12,8 +11,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const { target } = event;
     if (target.closest(".add-input-btn")) {
       event.preventDefault();
-      const addInputContainer = target.closest(".input-container").outerHTML;
-      inputsContainer.insertAdjacentHTML("beforeend", addInputContainer);
+      inputsContainer.insertAdjacentHTML("beforeend", renderNewInputs());
       return;
     }
     if (target.closest(".remove-input-btn")) {
@@ -31,23 +29,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
     if (doValidation(target)) {
       clearCreatedFormContainer(createdFormContainer);
       const elementsInfoArray = getArrayInfoObjects(target);
-
       const newForm = new Form(createdFormContainer);
       const inputsFragment = getNewFormMarkup(elementsInfoArray);
       newForm.createNewForm();
       newForm.inputsContainer.prepend(inputsFragment);
       newForm.appendNewForm();
+      newForm.createCopyHandler();
     }
   });
 
   formContainer.addEventListener("change", (event) => {
     event.stopImmediatePropagation();
     const { target } = event;
-    const selectValue = target.value;
     const inputsInfoContainer = target
       .closest(".input-container")
       .querySelector(".inputs-info-container");
-    switch (selectValue) {
+    switch (target.value) {
       case "text":
         renderInfoInputs(inputsInfoContainer, getTextInputMarkup);
         break;
@@ -200,6 +197,39 @@ type="text"
     container.insertAdjacentHTML("beforeend", markup());
   };
 
+  const renderNewInputs = () => {
+    return `
+    <div class="input-container row">
+    <div class="input-add-form col-10">
+      <select
+        class="form-select req"
+        aria-label="Default select example"
+        name="inputType"
+        required
+      >
+        <option selected value="">Choose input</option>
+        <option value="number">Number input</option>
+        <option value="text">Text input</option>
+        <option value="checkbox">Checkbox input</option>
+      </select>
+    </div>
+    <div class="buttons-container col-2">
+      <div class="add-new-input-markup-btn">
+        <button class="btn btn-success add-input-btn">
+          <i class="far fa-plus-square"></i>
+        </button>
+      </div>
+      <div class="remove-input-markup-btn">
+        <button class="btn btn-danger remove-input-btn">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+    <div class="inputs-info-container"></div>
+  </div>
+    `;
+  };
+
   const checkInputAmount = () => {
     return [...document.querySelectorAll(".input-container")].length;
   };
@@ -247,7 +277,7 @@ type="text"
     infoArray.forEach((element) => {
       switch (element.inputType) {
         case "number":
-          const numberInput = new Number(element);
+          const numberInput = new NumberInput(element);
           numberInput.createNumberInput();
           numberInput.createLabel();
           fragment.append(numberInput.input, numberInput.labelElement);
@@ -272,4 +302,5 @@ type="text"
   const clearCreatedFormContainer = (formContainer) => {
     formContainer.innerHTML = "";
   };
+
 });

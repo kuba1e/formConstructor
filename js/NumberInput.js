@@ -1,10 +1,10 @@
-class Number extends Input{
-  constructor({inputType, label, id, value, step, maxValue, minValue, placeholder}){
+class NumberInput extends Input{
+  constructor({inputType, label, id, value, step, max, min, placeholder}){
     super(inputType, label, id, placeholder)
     this.value = value;
     this.step = step; 
-    this.maxValue = maxValue;
-    this.minValue = minValue;
+    this.maxValue = max;
+    this.minValue = min;
   }
 
   createNumberInput(){

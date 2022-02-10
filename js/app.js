@@ -10,12 +10,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
   formContainer.addEventListener("click", (event) => {
     const { target } = event;
     if (target.closest(".add-input-btn")) {
-      event.preventDefault();
       inputsContainer.insertAdjacentHTML("beforeend", renderNewInputs());
       return;
     }
     if (target.closest(".remove-input-btn")) {
-      event.preventDefault();
       if (checkInputAmount() > 1) {
         target.closest(".input-container").remove();
       }
@@ -215,13 +213,13 @@ type="text"
       </select>
     </div>
     <div class="buttons-container col-2">
-      <div class="add-new-input-markup-btn">
-        <button class="btn btn-success add-input-btn">
+      <div  class="add-new-input-markup-btn">
+        <button type="button" class="btn btn-success add-input-btn">
           <i class="far fa-plus-square"></i>
         </button>
       </div>
-      <div class="remove-input-markup-btn">
-        <button class="btn btn-danger remove-input-btn">
+      <div   class="remove-input-markup-btn">
+        <button type="button" class="btn btn-danger remove-input-btn">
           <i class="fas fa-trash-alt"></i>
         </button>
       </div>
@@ -309,11 +307,5 @@ type="text"
       acc.push(element.id);
       return acc;
     }, []);
-  };
-
-  const showToast = (toast, message) => {
-    toastBody.textContent = message;
-    let newToast = new bootstrap.Toast(toast);
-    newToast.show();
   };
 });

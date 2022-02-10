@@ -22,9 +22,8 @@ class Form {
       "afterbegin",
       this.createInputsContainer()
     );
-    this.copyBtn = Form.createCopyButton();
-    if(this.container){
-      this.container.append(this.copyBtn);
+      if(this.container){
+      this.container.append(Form.createCopyButton());
     }
     this.form = formMarkup;
   }
@@ -36,6 +35,7 @@ class Form {
   }
 
   createCopyHandler() {
+    this.copyBtn= document.querySelector('.copy-btn')
     this.copyBtn.addEventListener("click", this.getFormHtml());
     Form.createToastHandler()
   }
@@ -58,7 +58,7 @@ class Form {
   }
 
   static  createToastHandler=()=>{
-    let toastTrigger = document.getElementById("liveToastBtn");
+    let toastTrigger = document.querySelector(".copy-btn");
     let toastLiveExample = document.getElementById("liveToast");
     if (toastTrigger) {
       toastTrigger.addEventListener("click", function () {
@@ -79,12 +79,18 @@ class Form {
   }
 
   static createCopyButton() {
-    const copyButton = document.createElement("btn");
+    const buttonContainer = document.createElement('div')
+    const copyButton = document.createElement("button");
+    buttonContainer.classList.add('d-flex')
+    buttonContainer.classList.add('justify-content-end')
     copyButton.id = "liveToastBtn";
     copyButton.classList.add("copy-btn");
+    copyButton.classList.add('btn')
+    copyButton.classList.add('btn-primary')
     copyButton.setAttribute("type", "button");
     copyButton.textContent = "Copy";
-    return copyButton
+    buttonContainer.append(copyButton)
+    return buttonContainer
   }
 
   static getFormMarkup(){

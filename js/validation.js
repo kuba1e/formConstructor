@@ -19,6 +19,9 @@ const doValidation = (form, uniqueValuesArray) => {
         if (!isIdValid(element.value, uniqueValuesArray)) {
           validationState = false;
           showAnError(element);
+        } else if(!isValueUnique(element.value, uniqueValuesArray)){
+          validationState = false;
+          showAnError(element);
           showToast(toastLiveExample, "IDs have to have unique values");
         } else {
           showSuccess(element);
@@ -97,7 +100,7 @@ const isTextValid = (text) => {
 
 const isIdValid = (id, uniqueValuesArray) => {
   const regExp = /^[a-zA-z|_|-]+$/;
-  return regExp.test(id) && isValueUnique(id, uniqueValuesArray);
+  return regExp.test(id);
 };
 
 const isLengthValid = (length) => {

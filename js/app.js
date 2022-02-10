@@ -26,9 +26,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
   addIputsForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const { target } = event;
-    if (doValidation(target)) {
+    const elementsInfoArray = getArrayInfoObjects(target);
+    const uniqueValuesArray = getUniqueArray(elementsInfoArray);
+    if (doValidation(target, uniqueValuesArray)) {
       clearCreatedFormContainer(createdFormContainer);
-      const elementsInfoArray = getArrayInfoObjects(target);
       const newForm = new Form(createdFormContainer);
       const inputsFragment = getNewFormMarkup(elementsInfoArray);
       newForm.createNewForm();
@@ -303,4 +304,16 @@ type="text"
     formContainer.innerHTML = "";
   };
 
+  const getUniqueArray = (elementsInfoArray) => {
+    return elementsInfoArray.reduce((acc, element) => {
+      acc.push(element.id);
+      return acc;
+    }, []);
+  };
+
+  const showToast = (toast, message) => {
+    toastBody.textContent = message;
+    let newToast = new bootstrap.Toast(toast);
+    newToast.show();
+  };
 });

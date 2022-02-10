@@ -1,4 +1,7 @@
-const doValidation = (form) => {
+const toastLiveExample = document.getElementById("liveToast");
+const toastBody = document.querySelector(".toast-body");
+
+const doValidation = (form, uniqueValuesArray) => {
   const inputs = [...form.querySelectorAll(".req")];
   let validationState = true;
   deleteErrorStyle(inputs);
@@ -13,9 +16,10 @@ const doValidation = (form) => {
         }
         break;
       case "id":
-        if (!isIdValid(element.value)) {
+        if (!isIdValid(element.value, uniqueValuesArray)) {
           validationState = false;
           showAnError(element);
+          showToast(toastLiveExample, "IDs have to have unique values");
         } else {
           showSuccess(element);
         }
@@ -91,9 +95,9 @@ const isTextValid = (text) => {
   return regExp.test(text);
 };
 
-const isIdValid = (id) => {
+const isIdValid = (id, uniqueValuesArray) => {
   const regExp = /^[a-zA-z|_|-]+$/;
-  return regExp.test(id);
+  return regExp.test(id) && isValueUnique(id, uniqueValuesArray);
 };
 
 const isLengthValid = (length) => {
@@ -111,7 +115,7 @@ const showAnError = (element) => {
 const showSuccess = (element) => {
   if (element.classList.contains("is-invalid")) {
     element.classList.remove("is-invalid");
-    console.log('dsf')
+    console.log("dsf");
   }
   element.classList.add("is-valid");
 };
@@ -124,4 +128,15 @@ const deleteErrorStyle = (elements) => {
   });
 };
 
+const isValueUnique = (value, array) => {
+  const uniqueValue = array.filter((element) => element === value).length;
+  if (uniqueValue === 1) {
+    return true;
+  }
+};
 
+const showToast = (toast, message) => {
+  toastBody.textContent = message;
+  let newToast = new bootstrap.Toast(toast);
+  newToast.show();
+};
